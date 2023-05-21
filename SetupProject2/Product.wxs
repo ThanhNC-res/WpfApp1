@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi"><?define WpfApp1_TargetDir=$(var.WpfApp1.TargetDir)?>
+	<Product Id="*" Name="SetupProject2" Language="1033" Version="1.0.0.0" Manufacturer="test-company.com" UpgradeCode="e46522b6-f2dd-4eb0-9fef-e7da5302e9f3">
+		<Package InstallerVersion="200" Compressed="yes" InstallScope="perMachine" />
+
+		<MajorUpgrade DowngradeErrorMessage="A newer version of [ProductName] is already installed." />
+		<MediaTemplate />
+
+		<Feature Id="ProductFeature" Title="SetupProject2" Level="1">
+			<ComponentGroupRef Id="ProductComponents" />
+			<ComponentGroupRef Id="ProgramFilesFolder_files" />
+		</Feature>
+	</Product>
+
+	<Fragment>
+		<Directory Id="TARGETDIR" Name="SourceDir">
+			<Directory Id="ProgramFilesFolder">
+				<Directory Id="INSTALLFOLDER" Name="SetupProject2" />
+			</Directory>
+		</Directory>
+	</Fragment>
+
+	<Fragment>
+		<ComponentGroup Id="ProductComponents" Directory="INSTALLFOLDER">
+			<!-- TODO: Remove the comments around this Component element and the ComponentRef below in order to add resources to this installer. -->
+			<!-- <Component Id="ProductComponent"> -->
+				<!-- TODO: Insert files, registry keys, and other resources here. -->
+			<!-- </Component> -->
+			<Component Id="WpfApp1.dll" Guid="d5968c74-8f15-406b-925f-57e4f70af7fa">
+			  <File Id="WpfApp1.dll" Name="WpfApp1.dll" Source="$(var.WpfApp1_TargetDir)WpfApp1.dll" />
+			</Component>
+			<Component Id="WpfApp1.runtimeconfig.json" Guid="36ff156b-a219-48b3-b2f9-5901d492176a">
+			  <File Id="WpfApp1.runtimeconfig.json" Name="WpfApp1.runtimeconfig.json" Source="$(var.WpfApp1_TargetDir)WpfApp1.runtimeconfig.json" />
+			</Component>
+			<Component Id="WpfApp1.exe" Guid="60ed935c-4434-49b9-a224-0d659fca0a0a">
+				<File Id="WpfApp1.exe" Name="WpfApp1.exe" Source="$(var.WpfApp1_TargetDir)WpfApp1.exe" />
+			</Component>
+			<Component Id="ClassLibrary2.dll" Guid="a800279c-1137-43aa-8ee9-5a2c1c0d1f71">
+			  <File Id="ClassLibrary2.dll" Name="ClassLibrary2.dll" Source="$(var.WpfApp1_TargetDir)ClassLibrary2.dll" />
+			</Component>
+		</ComponentGroup>
+	</Fragment>
+
+  <Fragment>
+    <ComponentGroup Id="ProgramFilesFolder_files" Directory="ProgramFilesFolder">
+      <Component Id="Files_TextFile1.txt" Guid="453295a3-839b-4f9d-b1bd-aacf863d82f0">
+        <File Id="Files_TextFile1.txt" Name="TextFile1.txt" Source="$(var.WpfApp1_TargetDir)Files\TextFile1.txt" />
+      </Component>
+    </ComponentGroup>
+  </Fragment>
+</Wix>
